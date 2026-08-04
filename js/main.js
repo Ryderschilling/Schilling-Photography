@@ -57,14 +57,21 @@ if (fromNav) sessionStorage.removeItem('sp_nav');
 if (preloader && !reduceMotion && !fromNav && !sessionStorage.getItem('sp_seen')) {
   sessionStorage.setItem('sp_seen', '1');
   document.body.style.overflow = 'hidden';
+  // Warm up the hero images while the preloader plays, so the reveal is fully painted.
+  document.querySelectorAll('.hero__panel img, .page-hero__bg img').forEach((img) => {
+    if (img.decode) img.decode().catch(() => {});
+  });
   const tl = gsap.timeline({
     onComplete: () => { document.body.style.overflow = ''; preloader.remove(); },
   });
   tl.to('.preloader__mark span', { y: 0, duration: 0.9, ease: 'power3.out', delay: 0.2 })
     .to('.preloader__sub span', { y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.55')
     .to('.preloader__line', { width: '120px', duration: 0.7, ease: 'power2.inOut' }, '-=0.4')
-    .to(preloader, { yPercent: -100, duration: 0.9, ease: 'power3.inOut', delay: 0.35 })
-    .add(heroEntrance, '-=0.45');
+    .to(['.preloader__mark span', '.preloader__sub span', '.preloader__line'], {
+      opacity: 0, y: -14, duration: 0.5, ease: 'power2.in', delay: 0.5,
+    })
+    .to(preloader, { yPercent: -100, duration: 1.15, ease: 'power4.inOut' }, '-=0.15')
+    .add(heroEntrance, '-=0.85');
 } else {
   if (preloader) preloader.remove();
   if (fromNav && curtain && !reduceMotion) {

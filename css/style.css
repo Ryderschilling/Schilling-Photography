@@ -83,6 +83,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: var(--bg);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 1rem;
+  padding: 0 clamp(1.25rem, 6vw, 3rem);
+  text-align: center;
 }
 .preloader__mark { overflow: hidden; }
 .preloader__mark span {
@@ -93,10 +95,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-transform: uppercase;
   transform: translateY(110%);
 }
-.preloader__sub { overflow: hidden; }
+.preloader__sub { overflow: hidden; max-width: 100%; }
 .preloader__sub span {
   display: block;
-  font-size: 0.66rem; letter-spacing: 0.5em; text-transform: uppercase;
+  font-size: clamp(0.52rem, 1.6vw, 0.66rem);
+  letter-spacing: clamp(0.22em, 1.2vw, 0.5em);
+  text-transform: uppercase;
+  line-height: 1.9;
   color: var(--cream-mute);
   transform: translateY(110%);
 }
